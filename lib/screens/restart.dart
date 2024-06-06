@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 
 class Restart extends StatefulWidget {
-Restart({super.key});
+  Restart({super.key});
   @override
   _RestartState createState() => _RestartState();
 }
@@ -13,24 +13,22 @@ class _RestartState extends State<Restart> {
   bool visible = true;
   TextEditingController usernameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-
+  // function login to router then restart called in line 158
   void loginAndRestart() async {
-    // Define the URL and headers for the login request
+    // URL and headers for the login request
     String loginUrl = "http://192.168.1.1/";
     Map<String, String> loginHeaders = {
       "Content-Type": "application/x-www-form-urlencoded",
     };
 
-    // Define the data for the login request
+    //  the data for the login request
     Map<String, String> loginData = {
       "action": "login",
       "Username": "admin",
       "Password": "elgaml2191168",
     };
 
-    // Create a session and make the POST request for login
-    http.Client client = http.Client();
-    http.Response loginResponse = await client.post(
+    http.Response loginResponse = await http.post(
       Uri.parse(loginUrl),
       headers: loginHeaders,
       body: loginData,
@@ -38,14 +36,14 @@ class _RestartState extends State<Restart> {
 
     // Check if login was successful
     if (loginResponse.statusCode == 200) {
-      // Define the URL and headers for the restart request
+      // URL and headers for the restart request
       String restartUrl =
           "http://192.168.1.1/getpage.gch?pid=1002&nextpage=manager_dev_conf_t.gch";
       Map<String, String> restartHeaders = {
         "Content-Type": "application/x-www-form-urlencoded",
       };
 
-      // Define the data for the restart request
+      //  the data for the restart request
       Map<String, String> restartData = {
         "IF_ACTION": "devrestart",
         "IF_ERRORSTR": "SUCC",
@@ -55,7 +53,7 @@ class _RestartState extends State<Restart> {
       };
 
       // Make the POST request to restart the router
-      http.Response restartResponse = await client.post(
+      http.Response restartResponse = await http.post(
         Uri.parse(restartUrl),
         headers: restartHeaders,
         body: restartData,
@@ -70,9 +68,6 @@ class _RestartState extends State<Restart> {
     } else {
       print("Failed to login: ${loginResponse.statusCode}");
     }
-
-    // Close the client
-    client.close();
   }
 
   @override
@@ -113,8 +108,8 @@ class _RestartState extends State<Restart> {
                         focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(
                                 color: Color.fromARGB(255, 242, 89, 78))),
-                        contentPadding: EdgeInsets.symmetric(
-                            horizontal: 13, vertical: 13),
+                        contentPadding:
+                            EdgeInsets.symmetric(horizontal: 13, vertical: 13),
                       ),
                     ),
                     const SizedBox(
@@ -159,9 +154,9 @@ class _RestartState extends State<Restart> {
                       },
                       style: ButtonStyle(
                         padding: MaterialStateProperty.all(
-                          EdgeInsets.symmetric(vertical: 10, horizontal: 20)),
+                            EdgeInsets.symmetric(vertical: 10, horizontal: 20)),
                         backgroundColor: MaterialStateProperty.all(
-                          const Color.fromARGB(255, 242, 89, 78)),
+                            const Color.fromARGB(255, 242, 89, 78)),
                         shape: MaterialStateProperty.all(
                           RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10),
